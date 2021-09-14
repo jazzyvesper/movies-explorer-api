@@ -1,0 +1,42 @@
+{
+  "name": "graduate-work",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "lint": "npx eslint .",
+    "fix": "eslint --fix .",
+    "test": "jest"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Urusova Svetlana",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "celebrate": "^15.0.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-winston": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.9",
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazzyvesper/express-mesto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jazzyvesper/express-mesto/issues"
+  },
+  "homepage": "https://github.com/jazzyvesper/express-mesto#readme"
+}
