@@ -6,7 +6,7 @@ const {
 } = require('../controllers/movies');
 const {
   validateCreateMovie,
-  validateDeleteMovies
+  validateDeleteMovies,
 } = require('../middlewares/validator');
 
 router.post('/', validateCreateMovie, createMovies);

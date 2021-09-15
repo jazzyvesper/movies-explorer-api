@@ -45,7 +45,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (v) => validator.isURL(v)
+      validator: (v) => validator.isURL(v),
     },
   },
   owner: {

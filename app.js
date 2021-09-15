@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const errorsHandler = require('./error/errorsHandler');
-const { requestLogger, errorLogger } = require('./error/logger')
+const { requestLogger, errorLogger } = require('./error/logger');
 const router = require('./routes/index');
 
 // подключаемся к серверу mongo
@@ -26,14 +26,14 @@ app.use(express.urlencoded({
 
 app.use(helmet());
 
- // подключаем логгер запросов
+// подключаем логгер запросов
 app.use(requestLogger);
 
-//подключаемя куки
+// подключаемя куки
 app.use(cookieParser());
 
-//поделючаем роуты
-app.use(router)
+// поделючаем роуты
+app.use(router);
 
 // подключаем логгер ошибок
 app.use(errorLogger);

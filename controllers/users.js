@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 const UserError = require('../error/UserError');
@@ -95,17 +96,17 @@ const updateUser = (req, res, next) => {
     { name, email },
     { new: true, runValidators: true },
   )
-  .orFail(new Error('Error'))
-  .then((user) => res.send(user))
-  .catch((err) => {
-    if (err.name === 'ValidationError') {
-      next(new UserError(400));
-    } else if (err.name === 'Error') {
+    .orFail(new Error('Error'))
+    .then((user) => res.send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new UserError(400));
+      } else if (err.name === 'Error') {
         next(new UserError(400));
       } else {
         next(new UserError(500));
-        }
-  });
+      }
+    });
 };
 
 module.exports = {
