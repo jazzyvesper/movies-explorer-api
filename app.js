@@ -4,16 +4,13 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const auth = require('./middlewares/auth');
-const userRoter = require('./routes/users');
-const moviesRouter = require('./routes/movies');
-const { createUser, login, logout } = require('./controllers/users');
 const errorsHandler = require('./error/errorsHandler');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const UserError = require('./error/UserError');
-const { validateSignUp, validateSignIn } = require('./middlewares/validator');
+const { requestLogger, errorLogger } = require('./error/logger')
+const router = require('./routes/index');
+
 // подключаемся к серверу mongo
 mongoose.connect('mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
@@ -21,27 +18,25 @@ mongoose.connect('mongodb://localhost:27017/moviesdb', {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
+
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
 }));
 
-app.use(requestLogger); // подключаем логгер запросов
+app.use(helmet());
 
+ // подключаем логгер запросов
+app.use(requestLogger);
+
+//подключаемя куки
 app.use(cookieParser());
 
-app.post('/signup', validateSignUp, createUser);
-app.post('/signin', validateSignIn, login);
-app.post('/signout', logout);
-app.use(auth);
-app.use('/users', userRoter);
-app.use('/movies', moviesRouter);
+//поделючаем роуты
+app.use(router)
 
-app.use('*', (req, res, next) => {
-  next(new UserError(404, 'Запрашиваемый ресурс не найден.'));
-});
-
-app.use(errorLogger); // подключаем логгер ошибок
+// подключаем логгер ошибок
+app.use(errorLogger);
 
 // валидация запросов
 app.use(errors());

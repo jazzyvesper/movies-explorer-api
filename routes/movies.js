@@ -4,8 +4,10 @@ const {
   findMovies,
   deleteMovies,
 } = require('../controllers/movies');
-
-const { validateCreateMovie, validateDeleteMovies } = require('../middlewares/validator');
+const {
+  validateCreateMovie,
+  validateDeleteMovies
+} = require('../middlewares/validator');
 
 router.post('/', validateCreateMovie, createMovies);
 router.get('/', findMovies);
