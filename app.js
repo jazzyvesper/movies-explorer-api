@@ -10,6 +10,7 @@ const { errors } = require('celebrate');
 const errorsHandler = require('./error/errorsHandler');
 const { requestLogger, errorLogger } = require('./error/logger');
 const router = require('./routes/index');
+const { limiter } = require('./middlewares/limiter');
 
 // подключаемся к серверу mongo
 mongoose.connect('mongodb://localhost:27017/moviesdb', {
@@ -25,7 +26,7 @@ app.use(express.urlencoded({
 }));
 
 app.use(helmet());
-
+app.use(limiter);
 // подключаем логгер запросов
 app.use(requestLogger);
 
